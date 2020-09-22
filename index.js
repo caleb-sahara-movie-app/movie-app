@@ -1,11 +1,14 @@
 const getUrl = 'https://stupendous-expensive-domain.glitch.me/movies';
 const getMovies = () => fetch(getUrl)
     .then(res => res.json())
-    .then(movies => movies[0].title)
+    .then(movies => movies)
 
 getMovies()
-    .then(data => {
-        let movie = `${data}`;
-    $('#result').html(movie);
-}) ;
+    .then(movies => {
+        for(let movie of movies) {
+            $('#result').append(`${movie.title}<br>`)
+        }
+    })
+
+
 
