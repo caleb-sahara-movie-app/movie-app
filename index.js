@@ -3,18 +3,16 @@ const getMovies = () => fetch(getUrl)
     .then(res => res.json())
     .then(movies => movies)
 
-getMovies()
-    .then(movies => {
-        for(let movie of movies) {
-            $('#result').append(`${movie.title}<br>`)
-        }
-    })
-// working on page onload
+document.onreadystatechange = function() {
+    if (document.readyState === "complete") {
+        $('#loader').remove()
+        getMovies()
+            .then(movies => {
+                for(let movie of movies) {
+                    $('#result').append(`${movie.title}<br>`)
+                }
+            })
+    }
+};
 
-//Type something out
-
-
-//Type something out2
-
-/// I typed here -Sahara
 
