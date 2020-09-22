@@ -9,6 +9,7 @@ getMovies()
             $('#result').append(`${movie.title}<br>`)
         }
     })
+// working on page onload
 
 
 
