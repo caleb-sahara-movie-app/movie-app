@@ -9,16 +9,25 @@ document.onreadystatechange = function() {
         getMovies()
             .then(movies => {
                 for(let movie of movies) {
-                    $('#result').append(`<li>${movie.title}</li>`)
+                    $('#result').append(`<li class="card"> 
+                                         <p>${movie.title}</p>
+                                         <p>${movie.id}</p>
+                                         <button class="editMovie">Edit Movie</button>
+                                         <button class="deleteMovie">Delete Movie</button></li`)
                 }
             })
     }
 };
 
+/*------- Render to HTML ----------*/
 let createMovie = (movieObj) => {
     let htmlStr = '';
     movieObj.forEach((movie) => {
-        htmlStr += `<li>${movie.title}</li>`
+        htmlStr += `<li class="card"> 
+                    <p>${movie.title}</p>
+                    <p>${movie.id}</p>
+                    <button class="editMovie">Edit Movie</button>                     
+                    <button class="deleteMovie">Delete Movie</button></li>`
     })
     return htmlStr
 }
@@ -41,12 +50,30 @@ const addMovie = () => {
         .catch(console.error);
 }
 
+
+const deleteMovie = (id) => fetch(`${getUrl}/${id}`, {
+    method: 'DELETE',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+})
+    .then(res => res.json())
+    .then(() => {
+        console.log(`Success: deleted dog with id of ${id}`);
+    })
+    .catch(console.error);
+
+/*--------- Event Listeners --------*/
 $('#addMovie').click((e) => {
     e.preventDefault()
     addMovie();
 })
 
-// $('#deleteMovie').click(e) => {
-//     e.preventDefault()
-//     deleteMovie();
-// }
+// var test = function () {
+//     console.log('hey');
+//}
+$('.deleteMovie').click((e) => {
+    e.preventDefault()
+    console.log('hey')
+})
+
