@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Movie App</title>
+    <style>
+        form {
+            border: 1px solid black;
+            width: 25%;
+        }
+    </style>
 </head>
 <body>
 <input type="text" placeholder="Search Movie..">
@@ -20,18 +26,38 @@
 <br>
 
 <input type="text" placeholder="Enter Movie Title">
-<button>Add Movie</button>
-<button>Delete Movie</button>
+<button id="editMovie">Edit Movie</button>
+<button id="deleteMovie">Delete Movie</button>
+
+<form>
+    <div>
+        <label id="">Title</label>
+        <input id="title" type="text">
+        <label>Genre</label>
+        <input id="genre" type="text">
+        <label>How would you rate this movie?</label>
+        <select name="rating" id="rating">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <button id="addMovie" type="submit">Add to our lineup</button>
+    </div>
+</form>
 
 <br>
 
 <h3>Result</h3>
 <div id="loader">Loading....</div>
-<div id="result"></div>
+<div>
+    <ul id="result">
+    </ul>
+</div>
 
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-
 <script src="index.js"></script>
 </body>
 </html>
