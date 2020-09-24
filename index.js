@@ -1,4 +1,4 @@
-$(document).ready(function() {
+
 
     const getUrl = 'https://stupendous-expensive-domain.glitch.me/movies';
     const getMovies = () => fetch(getUrl)
@@ -10,18 +10,21 @@ $(document).ready(function() {
             $('#loader').remove()
             getMovies()
                 .then(movies => {
+                    let renderMovie = ''
                     for (let movie of movies) {
-                        $('#result').append(`<li class="card"> 
+                        renderMovie += `<li class="card">
                                          <p>${movie.title}</p>
                                          <p>${movie.id}</p>
                                          <button class="editMovie">Edit Movie</button>
-                                         <button class="deleteMovie" data-id=${movie.id}>Delete Movie</button></li`)//feeds the movie.id and attaches it to the button
+                                         <button class="deleteMovie" onclick="$(this).DeleteMovie(${movie.id})" data-id=${movie.id}>Delete Movie</button></li>`
+                        $('#result').html(renderMovie)
                     }
                 })
         }
     };
 
-    /*------- Render to HTML ----------*/
+
+    /*------- Render to HTML when CREATED ----------*/
     let createMovie = (movieObj) => {
         let htmlStr = '';
         movieObj.forEach((movie) => {
@@ -82,25 +85,43 @@ $(document).ready(function() {
         console.log('hey')
     })
 
-    $('.deleteMovie').click((e) => { // the event
-        e.preventDefault()
-        //console.log('hey') // an attempt to get this button to talk to console.log
 
-        const deleteMovie = (id) => fetch(`${getUrl}/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(res => res.json())
-            .then(() => {
-                console.log(`Success: Deleted movie with id of ${id}`);
+    // $.fn.DeleteMovie = function(movieID) {
+    //     deleteButtons.each(function() {
+            //       // an attempt to get this button to talk to console.log
+            //     $(this).click(function() { // the event
+            //
+            //         // const deleteMovie = (id) => fetch(`${getUrl}/${id}`, {
+            //         //     method: 'DELETE',
+            //         //     headers: {
+            //         //         'Content-Type': 'application/json'
+            //         //     }
+            //         // })
+            //         //     .then(res => res.json())
+            //         //     .then(() => {
+            //         //         console.log(`Success: Deleted movie with id of ${id}`);
+            //         //     })
+            //         //     .catch(console.error);
+            //         //
+            //         // let movieId = $(this).data('data-id') // grab the data-id attributes
+            //         // deleteMovie(movieId) //passed that variable into our deleteMovie promise bec it take a number
+
+
+    $.fn.DeleteMovie = function(movieID) {
+        console.log(movieID)
+        deleteMovie(movieID)
+        getMovies()
+            .then(movies => {
+                let renderMovie = ''
+                for (let movie of movies) {
+                    renderMovie += `<li class="card">
+                                         <p>${movie.title}</p>
+                                         <p>${movie.id}</p>
+                                         <button class="editMovie">Edit Movie</button>
+                                         <button class="deleteMovie" onclick="$(this).DeleteMovie(${movie.id})" data-id=${movie.id}>Delete Movie</button></li>`
+                    $('#result').html(renderMovie)
+                }
             })
-            .catch(console.error);
+    }
 
-        let movieId = $(this).data('data-id') // grab the data-id attributes
-        deleteMovie(movieId) //passed that variable into our deleteMovie promise bec it take a number
-    })
-
-});
 
