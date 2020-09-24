@@ -110,6 +110,8 @@
     $.fn.DeleteMovie = function(movieID) {
         console.log(movieID)
         deleteMovie(movieID)
+
+        $('#result').html('')
         getMovies()
             .then(movies => {
                 let renderMovie = ''
