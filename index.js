@@ -6,13 +6,15 @@ const getMovies = () => fetch(getUrl)
     .then(movies => {
         let renderMovie = ''
         for (let movie of movies) {
+            let grabTitle = movie.title;
             renderMovie += `<li class="card">
                             <p>${movie.title}</p>
                             <p>${movie.id}</p>
-                            <button onclick="editMovie(this)" data-title=${movie.title} data-genre=${movie.genre} data-rating=${movie.rating} data-id=${movie.id} data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Edit Movie</button>
+                            <button onclick="editMovie(this)" data-title="${grabTitle}" data-genre=${movie.genre} data-rating=${movie.rating} data-id=${movie.id} data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Edit Movie</button>
                             <button onclick="deleteMovie(this)" data-id=${movie.id}>Delete Movie</button></li>`
             $('#result').html(renderMovie)
         }
+
     })
 
 document.onreadystatechange = function () {
@@ -56,21 +58,55 @@ const deleteMovie = (ele) => {
 }
 
 
-
 const editMovie = (ele) => {
     let dataID = [($(ele).data('id')), ($(ele).data('title')), ($(ele).data('genre')), ($(ele).data('rating'))]
 
 console.log(`The edit button with an id of ${dataID[0]}, is titled: ${dataID[1]}, it's genre is: ${dataID[2]}, and has a rating of ${dataID[3]} has been clicked`)
+    console.log($(ele).data())
 
-    // $('#exampleModal').on('show.bs.modal', function (event) {
-    //     let button = $(event.relatedTarget) // Button that triggered the modal
-    //     let recipient = button.data('whatever') // Extract info from data-* attributes
-    //     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-    //     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-    //     var modal = $(this)
-    //     modal.find('.modal-title').text('New message to ' + recipient)
-    //     modal.find('.modal-body input').val(recipient)
-    // })
+    let editModal = ''
+    editModal +=
+        `<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">What would you like to edit?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="w-100">
+                    <div class="form-group m-3">
+                        <label for="title-name" class="col-form-label">Title:</label>
+                        <textarea class="form-control" id="title-type">${dataID[1]}</textarea>
+                    </div>
+                    <div class="form-group m-3">
+                        <label for="genre-type" class="col-form-label">Genre:</label>
+                        <textarea class="form-control" id="genre-type">${dataID[2]}</textarea>
+                    </div>
+                    <div class="form-group m-3">
+                        <label for="rating-change" class="col-form-label">Rating:</label>
+                        <select class="form-control" id="rating-change">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Send message</button>
+            </div>
+        </div>
+    </div>
+</div>`
+    $('.putModal').html(editModal)
+
+
 // fetch(`${getUrl}/${id}`, {
 //     method: 'PUT',
 //     headers: {
