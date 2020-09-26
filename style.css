@@ -1,0 +1,23 @@
+form {
+    border: 1px solid black;
+    width: 25%;
+}
+
+
+/*------------------- themoviedb.org API test ----------------*/
+section {
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+}
+
+section img {
+    width: 300px;
+    transition: 250ms all;
+}
+
+img:hover {
+    margin-left: 40px;
+    transform: scale(1.2);
+    cursor: pointer;
+}

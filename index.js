@@ -135,3 +135,150 @@ $('#addMovie').click((e) => {
 })
 
 
+
+
+
+/*-------------------------------- themoviedb.org API Tests ----------------------------------*/
+const posterUrl = 'https://image.tmdb.org/t/p/w500';
+const url = 'https://api.themoviedb.org/3/search/movie?api_key=' + themoviedb_API;
+
+// Movie Poster Function
+function movieSection(movies) {
+    return movies.map((movie) => {
+        if (movie.poster_path) {
+            return `<img src=${posterUrl + movie.poster_path} data-movie-id=${movie.id}/>`;
+        }
+    });
+}
+
+// Select Elements from DOM
+const moviesContainer = document.querySelector('#movies-container');
+
+
+
+/*------------------ API requests -----------------*/
+
+function generateUrl(path) {
+    const url = `https://api.themoviedb.org/3${path}?api_key=${themoviedb_API}`;
+    return url;
+}
+
+// Responsible whenever we request new movies
+function requestMovies(url, onComplete, onError) {
+    fetch(url)
+        .then((res) => res.json())
+        .then(onComplete)
+        .catch(onError);
+}
+
+// Some Basic Error Handler
+function handleError(error) {
+    console.log('Error:', error);
+}
+
+
+function searchMovies(value) {
+    const path = '/search/movie';
+    const url = generateUrl(path) + '&query=' + value;
+    requestMovies(url, renderSearchMovies, handleError);
+}
+
+function getUpcomingMovies(value) {
+    const path = '/movie/upcoming';
+    const url = generateUrl(path);
+
+    const render = renderMovies.bind({ title: 'Upcoming Movies' })
+    requestMovies(url, render, handleError);
+}
+
+function getTopRatedMovies(value) {
+    const path = '/movie/top_rated';
+    const url = generateUrl(path);
+
+    const render = renderMovies.bind({ title: 'Top Rated Movies' })
+    requestMovies(url, render, handleError);
+}
+
+function getPopularMovies(value) {
+    const path = '/movie/popular';
+    const url = generateUrl(path);
+
+    const render = renderMovies.bind({ title: 'Popular Movies' })
+    requestMovies(url, render, handleError);
+}
+
+
+/*---------- Render to HTML -----------*/
+
+// Trying to figure out how convert vanilla JS to jQuery when adding new elements to document
+function createMovieContainer(movies, title = '') {
+    const movieElement = document.createElement('div');
+    movieElement.setAttribute('class', 'movie');
+
+    //const movieElement = $('body').add('<div>').addClass('movie')
+
+    // Notice we're calling that function to feed into <section>
+    const movieTemplate = `
+      <h2>${title}</h2>
+      <section class="section"> 
+        ${movieSection(movies)}
+      </section>
+
+      <div class="content">
+        <p id="content-close">X</p>
+      </div>
+  `;
+
+    movieElement.innerHTML = movieTemplate;
+    //movieElement.html(movieElement)
+    return movieElement;
+}
+
+
+// We use this to populate upcoming, popular, and top-rated movies w/ different url paths
+function renderMovies(data) {
+    // data.results []
+    const movies = data.results;
+    const movieBlock = createMovieContainer(movies, this.title);
+    $('#movies-container').append(movieBlock)
+    console.log('Data:', data);
+}
+
+
+// Listener for the Search submit button
+$('#search-submit').click((e) => {
+    e.preventDefault();
+    let value = $('#search-input').val()
+    searchMovies(value);
+
+    value = '';
+    console.log('Input Value: ', value);
+});
+
+
+// Render the result of searched movies
+function renderSearchMovies(data) {
+    // data.results []
+    $('#search-result').html('');
+    const movies = data.results;
+    const movieBlock = createMovieContainer(movies);
+    $('#search-result').append(movieBlock);
+    console.log('Data:', data);
+}
+/*--------- Invoke API Requests ----------*/
+searchMovies('Khan');
+
+getUpcomingMovies();
+
+getPopularMovies();
+
+getTopRatedMovies();
+
+
+
+
+
+
+
+
+
