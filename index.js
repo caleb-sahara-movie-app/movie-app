@@ -4,6 +4,7 @@ const getUrl = 'https://stupendous-expensive-domain.glitch.me/movies';
 const getMovies = () => fetch(getUrl)
     .then(res => res.json())
     .then(movies => {
+        console.log(movies)
         let renderMovie = ''
         for (let movie of movies) {
             let grabTitle = movie.title;
@@ -98,14 +99,14 @@ const renderModal = (ele) => {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" onClick="editMovie(this)" data-id=${dataID[0]} class="btn btn-primary">Submit Changes</button>
+                <button type="button" onClick="editMovie(this)" data-id=${dataID[0]} class="updateChange btn btn-primary">Submit Changes</button>
             </div>
         </div>
     </div>
 </div>`
     $('.putModal').html(createModal)
-
 }
+
 const editMovie = (ele) => {
     let movie = {title: $('#title-type').val(), genre: $('#genre-type').val(), rating: $('#rating-change').val()};
     let dataID = $(ele).data('id')
@@ -119,7 +120,9 @@ const editMovie = (ele) => {
     })
         .then((data) => {
             getMovies()
-            // $('.putModal').html('');
+            $('.putModal').html('');
+            $('body').removeClass('modal-open'); // .modal-open overrides default scrolling behavior, so i removed that and BAM
+            $('.modal-backdrop').remove(); //removes that div class that is auto-injected in HTML
         })
         .catch(console.error);
 }
