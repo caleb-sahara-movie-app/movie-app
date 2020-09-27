@@ -153,7 +153,7 @@ function movieSection(movies) {
 
 // Select Elements from DOM
 const moviesContainer = document.querySelector('#movies-container');
-
+//const moviesContainer = $('#movies-container')
 
 
 /*------------------ API requests -----------------*/
@@ -209,10 +209,10 @@ function getPopularMovies(value) {
 
 
 /*---------- Render to HTML -----------*/
-
 // Trying to figure out how convert vanilla JS to jQuery when adding new elements to document
 function createMovieContainer(movies, title = '') {
     const movieElement = document.createElement('div');
+    //const movieElement = $(document).add('div')
     movieElement.setAttribute('class', 'movie');
 
     //const movieElement = $('body').add('<div>').addClass('movie')
