@@ -4,7 +4,7 @@ const getUrl = 'https://stupendous-expensive-domain.glitch.me/movies';
 const getMovies = () => fetch(getUrl)
     .then(res => res.json())
     .then(movies => {
-        console.log(movies)
+        //console.log(movies)
         let renderMovie = ''
         for (let movie of movies) {
             let grabTitle = movie.title;
@@ -27,20 +27,21 @@ document.onreadystatechange = function () {
 };
 
 
-const addMovie = () => {
-    let movie = {title: $('#title').val(), genre: $('#genre').val(), rating: $('#rating').val()};
-    fetch(`${getUrl}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(movie)
-    })
-        .then((data) => {
-            getMovies()
-        })
-        .catch(console.error);
-}
+// const addMovie = () => {
+//     let movie = {title: $('#title').val(), genre: $('#genre').val(), rating: $('#rating').val()};
+//     fetch(`${getUrl}`, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(movie)
+//     })
+//         .then((data) => {
+//             getMovies()
+//         })
+//         .catch(console.error);
+// }
+
 
 
 const deleteMovie = (ele) => {
@@ -129,10 +130,11 @@ const editMovie = (ele) => {
 
 
 /*---------- Event Listeners ---------*/
-$('#addMovie').click((e) => {
-    e.preventDefault()
-    addMovie();
-})
+// $('#addMovie').click((e) => {
+//     e.preventDefault()
+//     // addMovie();
+//     console.log("I've been clicked!")
+// })
 
 
 
@@ -142,18 +144,29 @@ $('#addMovie').click((e) => {
 const posterUrl = 'https://image.tmdb.org/t/p/w500';
 const url = 'https://api.themoviedb.org/3/search/movie?api_key=' + themoviedb_API;
 
+
+
 // Movie Poster Function
 function movieSection(movies) {
     return movies.map((movie) => {
         if (movie.poster_path) {
-            return `<img src=${posterUrl + movie.poster_path} data-movie-id=${movie.id}/>`;
+            let renderMovie = ''
+            for(movie of movies) {
+                let grabID = movie.id;
+                renderMovie +=
+                    `<div class="movieFromAPI mx-3">
+                        <button id="addMovie" onclick="addMovie(this)" data-movie-id=${grabID} class="mr-4 mt-3"><i class="fas fa-plus"></i></button>
+                        <img id="movieImg" src=${posterUrl + movie.poster_path} data-movie-id=${movie.id}/>
+                    </div>`
+            }
+            return renderMovie;
         }
     });
 }
 
 // Select Elements from DOM
 const moviesContainer = document.querySelector('#movies-container');
-//const moviesContainer = $('#movies-container')
+
 
 
 /*------------------ API requests -----------------*/
@@ -207,30 +220,27 @@ function getPopularMovies(value) {
     requestMovies(url, render, handleError);
 }
 
+function addMovie(ele) {
+    let movieID = $(ele)[0].attributes[2].nodeValue;
+    console.log(movieID) //will log the specific movie ID
+
+}
 
 /*---------- Render to HTML -----------*/
 // Trying to figure out how convert vanilla JS to jQuery when adding new elements to document
 function createMovieContainer(movies, title = '') {
     const movieElement = document.createElement('div');
-    //const movieElement = $(document).add('div')
     movieElement.setAttribute('class', 'movie');
 
-    //const movieElement = $('body').add('<div>').addClass('movie')
-
-    // Notice we're calling that function to feed into <section>
     const movieTemplate = `
-      <h2>${title}</h2>
-      <section class="section"> 
+     <h2>${title}</h2>
+     <section class="section"> 
         ${movieSection(movies)}
       </section>
-
-      <div class="content">
-        <p id="content-close">X</p>
-      </div>
-  `;
+       `;
+    // Notice we're calling that function to feed into <section> : movieSection() on ln.146
 
     movieElement.innerHTML = movieTemplate;
-    //movieElement.html(movieElement)
     return movieElement;
 }
 
@@ -265,6 +275,7 @@ function renderSearchMovies(data) {
     $('#search-result').append(movieBlock);
     console.log('Data:', data);
 }
+
 /*--------- Invoke API Requests ----------*/
 searchMovies('Khan');
 
