@@ -4,16 +4,29 @@ const getUrl = 'https://stupendous-expensive-domain.glitch.me/movies';
 const getMovies = () => fetch(getUrl)
     .then(res => res.json())
     .then(movies => {
-        console.log(movies)
+        //console.log(movies)
         let renderMovie = ''
         for (let movie of movies) {
             let grabTitle = movie.title;
             let grabGenre = movie.genre;
-            renderMovie += `<li class="card">
-                            <p>${movie.title}</p>
-                            <p>${movie.id}</p>
-                            <button onclick="renderModal(this)" data-title="${grabTitle}" data-genre=${grabGenre} data-rating=${movie.rating} data-id=${movie.id} data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Edit Movie</button>
-                            <button onclick="deleteMovie(this)" data-id=${movie.id}>Delete Movie</button></li>`
+            let grabID = movie.id;
+            renderMovie +=
+                `<div class="movieFromAPI mx-3">
+                        <button onclick="renderModal(this)" data-title="${grabTitle}" data-genre=${grabGenre} data-rating=${movie.rating} data-id=${grabID} data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Edit Movie</button>
+                        <button onclick="deleteMovie(this)" data-id=${grabID}>Delete Movie</button>
+                        <img id="movieImg" src=${posterUrl + movie.poster_path} data-movie-id=${movie.id}/>
+                    </div>`
+            //PULLED BUTTON FROM COPY AND PASTE FROM RENDERMOVIE;
+                // <button id="addMovie" onclick="addMovie(this)" data-movie-id= class="mr-4 mt-3"><i class="fas fa-plus"></i></button>
+
+            //Original rendering of movies from database
+            // `<li class="card">
+            //     <p>${movie.title}</p>
+            //     <p>${movie.id}</p>
+            //     <button onclick="renderModal(this)" data-title="${grabTitle}" data-genre=${grabGenre} data-rating=${movie.rating} data-id=${movie.id} data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Edit Movie</button>
+            //     <button onclick="deleteMovie(this)" data-id=${movie.id}>Delete Movie</button>
+            //  </li>`
+
             $('#result').html(renderMovie)
         }
 
@@ -27,20 +40,21 @@ document.onreadystatechange = function () {
 };
 
 
-const addMovie = () => {
-    let movie = {title: $('#title').val(), genre: $('#genre').val(), rating: $('#rating').val()};
-    fetch(`${getUrl}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(movie)
-    })
-        .then((data) => {
-            getMovies()
-        })
-        .catch(console.error);
-}
+// const addMovie = () => {
+//     let movie = {title: $('#title').val(), genre: $('#genre').val(), rating: $('#rating').val()};
+//     fetch(`${getUrl}`, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(movie)
+//     })
+//         .then((data) => {
+//             getMovies()
+//         })
+//         .catch(console.error);
+// }
+
 
 
 const deleteMovie = (ele) => {
@@ -129,10 +143,11 @@ const editMovie = (ele) => {
 
 
 /*---------- Event Listeners ---------*/
-$('#addMovie').click((e) => {
-    e.preventDefault()
-    addMovie();
-})
+// $('#addMovie').click((e) => {
+//     e.preventDefault()
+//     // addMovie();
+//     console.log("I've been clicked!")
+// })
 
 
 
@@ -142,11 +157,22 @@ $('#addMovie').click((e) => {
 const posterUrl = 'https://image.tmdb.org/t/p/w500';
 const url = 'https://api.themoviedb.org/3/search/movie?api_key=' + themoviedb_API;
 
+
+
 // Movie Poster Function
 function movieSection(movies) {
     return movies.map((movie) => {
         if (movie.poster_path) {
-            return `<img src=${posterUrl + movie.poster_path} data-movie-id=${movie.id}/>`;
+            let renderMovie = ''
+            for(movie of movies) {
+                let grabID = movie.id;
+                renderMovie +=
+                    `<div class="movieFromAPI mx-3">
+                        <button id="addMovie" onclick="addMovie(this)" data-movie-id=${grabID} class="mr-4 mt-3"><i class="fas fa-plus"></i></button>
+                        <img id="movieImg" src=${posterUrl + movie.poster_path} data-movie-id=${movie.id}/>
+                    </div>`
+            }
+            return renderMovie;
         }
     });
 }
@@ -207,30 +233,53 @@ function getPopularMovies(value) {
     requestMovies(url, render, handleError);
 }
 
+function addMovie(ele) {
+    let movieID = $(ele)[0].attributes[2].nodeValue;
+    // console.log(movieID) //will log the specific movie ID
+
+    const path = `/movie/${movieID}`
+    const url = generateUrl(path);
+
+    console.log(url) //will log url that will get movie info.
+    fetch(url)
+        .then((res) => res.json())
+        .then((data) => {
+            let addedMovie = data;
+            console.log(addedMovie) //logs clicked movie data
+            fetch(`${getUrl}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(addedMovie)
+            })
+                .then((data) => data.json())
+                    .then(movie => {
+                        getMovies()
+                    })
+                    // getMovies()
+
+                .catch(console.error);
+        })
+
+
+}
 
 /*---------- Render to HTML -----------*/
-
 // Trying to figure out how convert vanilla JS to jQuery when adding new elements to document
 function createMovieContainer(movies, title = '') {
     const movieElement = document.createElement('div');
     movieElement.setAttribute('class', 'movie');
 
-    //const movieElement = $('body').add('<div>').addClass('movie')
-
-    // Notice we're calling that function to feed into <section>
     const movieTemplate = `
-      <h2>${title}</h2>
-      <section class="section"> 
+     <h2>${title}</h2>
+     <section class="section"> 
         ${movieSection(movies)}
       </section>
-
-      <div class="content">
-        <p id="content-close">X</p>
-      </div>
-  `;
+       `;
+    // Notice we're calling that function to feed into <section> : movieSection() on ln.146
 
     movieElement.innerHTML = movieTemplate;
-    //movieElement.html(movieElement)
     return movieElement;
 }
 
@@ -265,6 +314,7 @@ function renderSearchMovies(data) {
     $('#search-result').append(movieBlock);
     console.log('Data:', data);
 }
+
 /*--------- Invoke API Requests ----------*/
 searchMovies('Khan');
 

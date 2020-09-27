@@ -11,13 +11,27 @@ section {
     overflow-x: auto;
 }
 
-section img {
+.movieFromAPI img{
     width: 300px;
     transition: 250ms all;
+
 }
 
-img:hover {
-    margin-left: 40px;
+.movieFromAPI {
+    position: relative;
+}
+
+.movieFromAPI button {
+    position: absolute;
+    z-index: 1000;
+    right: 0;
+}
+
+.movieFromAPI #movieImg:hover,
+.movieFromAPI button:hover ~ #movieImg,
+.movieFromAPI #movieImg:hover ~ button {
+    /*margin-left: 2rem;*/
+    /*margin-right: 2rem;*/
     transform: scale(1.2);
     cursor: pointer;
 }
