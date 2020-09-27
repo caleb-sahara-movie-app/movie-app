@@ -9,11 +9,24 @@ const getMovies = () => fetch(getUrl)
         for (let movie of movies) {
             let grabTitle = movie.title;
             let grabGenre = movie.genre;
-            renderMovie += `<li class="card">
-                            <p>${movie.title}</p>
-                            <p>${movie.id}</p>
-                            <button onclick="renderModal(this)" data-title="${grabTitle}" data-genre=${grabGenre} data-rating=${movie.rating} data-id=${movie.id} data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Edit Movie</button>
-                            <button onclick="deleteMovie(this)" data-id=${movie.id}>Delete Movie</button></li>`
+            let grabID = movie.id;
+            renderMovie +=
+                `<div class="movieFromAPI mx-3">
+                        <button onclick="renderModal(this)" data-title="${grabTitle}" data-genre=${grabGenre} data-rating=${movie.rating} data-id=${grabID} data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Edit Movie</button>
+                        <button onclick="deleteMovie(this)" data-id=${grabID}>Delete Movie</button>
+                        <img id="movieImg" src=${posterUrl + movie.poster_path} data-movie-id=${movie.id}/>
+                    </div>`
+            //PULLED BUTTON FROM COPY AND PASTE FROM RENDERMOVIE;
+                // <button id="addMovie" onclick="addMovie(this)" data-movie-id= class="mr-4 mt-3"><i class="fas fa-plus"></i></button>
+
+            //Original rendering of movies from database
+            // `<li class="card">
+            //     <p>${movie.title}</p>
+            //     <p>${movie.id}</p>
+            //     <button onclick="renderModal(this)" data-title="${grabTitle}" data-genre=${grabGenre} data-rating=${movie.rating} data-id=${movie.id} data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Edit Movie</button>
+            //     <button onclick="deleteMovie(this)" data-id=${movie.id}>Delete Movie</button>
+            //  </li>`
+
             $('#result').html(renderMovie)
         }
 
@@ -222,7 +235,33 @@ function getPopularMovies(value) {
 
 function addMovie(ele) {
     let movieID = $(ele)[0].attributes[2].nodeValue;
-    console.log(movieID) //will log the specific movie ID
+    // console.log(movieID) //will log the specific movie ID
+
+    const path = `/movie/${movieID}`
+    const url = generateUrl(path);
+
+    console.log(url) //will log url that will get movie info.
+    fetch(url)
+        .then((res) => res.json())
+        .then((data) => {
+            let addedMovie = data;
+            console.log(addedMovie) //logs clicked movie data
+            fetch(`${getUrl}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(addedMovie)
+            })
+                .then((data) => data.json())
+                    .then(movie => {
+                        getMovies()
+                    })
+                    // getMovies()
+
+                .catch(console.error);
+        })
+
 
 }
 
