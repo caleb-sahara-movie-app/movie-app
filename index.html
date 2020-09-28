@@ -5,63 +5,26 @@
     <title>Movie App</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+          integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <input id="search-input" type="text" placeholder="Search Movie..">
 <button id="search-submit">Submit Search</button>
 
-<label for="movie-rating">Rating:</label>
-<select name="movie-rating" id="movie-rating">
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-</select>
-<button>Submit</button>
-
 <br>
 
-<form>
-    <div>
-        <label id="">Title</label>
-        <input id="title" type="text">
-        <label>Genre</label>
-        <input id="genre" type="text">
-        <label>How would you rate this movie?</label>
-        <select name="rating" id="rating">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-        <button id="addMovie" type="submit">Add to our lineup</button>
-    </div>
-</form>
-
-<br>
-
-<button class="test">Test button</button>
-
-<h3>Result</h3>
 <div id="loader">Loading....</div>
+<h2>My Watchlist</h2>
 <section class='container-fluid section' id="result">
-
 </section>
-
 <div class="putModal"></div>
-
-
 
 
 <!-------------- themoviedb.org API Tests ---------------->
 <div id="search-result"></div>
 <div id="movies-container"></div>
-
-
 
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
