@@ -86,7 +86,7 @@ const renderModal = (ele) => {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" onClick="editMovie(this)" data-id=${dataID[1]} data-rating=`$('#rating-change').change(function () {return $(this).val();})` class="updateChange btn btn-primary">Submit Changes</button>
+                <button id="rating" type="button" onClick="editMovie(this)" data-id=${dataID[1]} data-rating="" class="updateChange btn btn-primary">Submit Changes</button>
             </div>
         </div>
     </div>
@@ -96,6 +96,16 @@ const renderModal = (ele) => {
     // const userRating = function () {
     //     $('#rating-change').change(function () {return $(this).val();})
     // }
+    //${$('#rating-change').change(function () {return $(this).val();})}
+    let rating = document.getElementById('rating-change').value;
+    console.log(rating)
+    $('#rating-change').change(function() {
+        rating = '';
+
+        rating = ($(this).val())
+        console.log(rating)
+        $('#rating').attr({'data-rating': `${rating}`})
+    })
 }
 
 
@@ -209,11 +219,9 @@ function addMovie(ele) {
 }
 
 const editMovie = (ele) => {
-    // let movie = {vote_average: $('#rating-change').val()};
-    // console.log(movie)
-    console.log($(ele))
-    // console.log($(ele)[0].attributes[3].)
-    let dataID = ($(ele)[0].attributes[2].nodeValue)
+   //target for API
+    let rating = ($(ele)[0].attributes[4].nodeValue)
+    let dataID = ($(ele)[0].attributes[3].nodeValue)
     console.log("The id is: " + dataID)
 
     const path = `/movie/${dataID}/rating`;
@@ -224,8 +232,20 @@ const editMovie = (ele) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(movie)
+        body: JSON.stringify(rating)
     })
+
+
+    // console.log($(ele))
+    // let rating = {'vote_average' : ($(ele)[0].attributes[4].nodeValue)}
+    // let dataID = ($(ele)[0].attributes[3].nodeValue)
+    // fetch(`${getUrl}/${dataID}`, {
+    //     method: 'PUT',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(rating)
+    // })
         .then((data) => {
             getMovies()
             $('.putModal').html('');
