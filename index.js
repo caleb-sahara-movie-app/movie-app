@@ -219,33 +219,33 @@ function addMovie(ele) {
 }
 
 const editMovie = (ele) => {
-   //target for API
-    let rating = ($(ele)[0].attributes[4].nodeValue)
-    let dataID = ($(ele)[0].attributes[3].nodeValue)
-    console.log("The id is: " + dataID)
+   // //target for API
+   //  let rating = ($(ele)[0].attributes[4].nodeValue)
+   //  let dataID = ($(ele)[0].attributes[3].nodeValue)
+   //  console.log("The id is: " + dataID)
+   //
+   //  const path = `/movie/${dataID}/rating`;
+   //  const url = generateUrl(path);
+   //  console.log(url)
+   //  fetch(url, {
+   //      method: 'POST',
+   //      headers: {
+   //          'Content-Type': 'application/json'
+   //      },
+   //      body: JSON.stringify(rating)
+   //  })
 
-    const path = `/movie/${dataID}/rating`;
-    const url = generateUrl(path);
-    console.log(url)
-    fetch(url, {
-        method: 'POST',
+
+    console.log($(ele))
+    let rating = {'vote_average' : ($(ele)[0].attributes[4].nodeValue)}
+    let dataID = ($(ele)[0].attributes[3].nodeValue)
+    fetch(`${getUrl}/${dataID}`, {
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(rating)
     })
-
-
-    // console.log($(ele))
-    // let rating = {'vote_average' : ($(ele)[0].attributes[4].nodeValue)}
-    // let dataID = ($(ele)[0].attributes[3].nodeValue)
-    // fetch(`${getUrl}/${dataID}`, {
-    //     method: 'PUT',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(rating)
-    // })
         .then((data) => {
             getMovies()
             $('.putModal').html('');
