@@ -14,8 +14,8 @@ const getMovies = () => fetch(getUrl)
                 let grabID = movie.id;
                 renderMovie +=
                     `<div class="movieFromAPI mx-3">
-                        <button class="mt-5" onclick="renderModal(this)" data-rating=${movies[0].vote_average} data-id=${grabID} data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Edit Movie</button>
-                        <button onclick="deleteMovie(this)" data-id=${grabID}>Delete Movie</button>
+                        <button class="btn btn-danger" onclick="deleteMovie(this)" data-id=${grabID}>Delete Movie</button>
+                        <button class="btn btn-primary mt-5" onclick="renderModal(this)" data-rating=${movies[0].vote_average} data-id=${grabID} data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Edit Movie</button>
                         <img id="movieImg" src=${posterUrl + movie.poster_path} data-movie-id=${movie.id}/>
                     </div>`
 
@@ -124,7 +124,7 @@ function movieSection(movies) {
                 renderMovie +=
                     `<div class="movieFromAPI mx-3">
                         <button class="mt-5" onclick="renderModal(this)" data-rating=${movie.rating} data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Edit Movie</button>
-                        <button id="addMovie" onclick="addMovie(this)" data-movie-id=${grabID} class="mr-4 mt-3"><i class="fas fa-plus"></i></button>
+                        <button class="btn btn-success" id="addMovie" onclick="addMovie(this)" data-movie-id=${grabID} class="mr-4 mt-3"><i class="fas fa-plus"></i></button>
                         <img id="movieImg" src=${posterUrl + movie.poster_path} data-movie-id=${movie.id}/>
                     </div>`
             }
@@ -164,13 +164,13 @@ function searchMovies(value) {
     requestMovies(url, renderSearchMovies, handleError);
 }
 
-function getUpcomingMovies(value) {
-    const path = '/movie/upcoming';
-    const url = generateUrl(path);
-
-    const render = renderMovies.bind({title: 'Upcoming Movies'})
-    requestMovies(url, render, handleError);
-}
+// function getUpcomingMovies(value) {
+//     const path = '/movie/upcoming';
+//     const url = generateUrl(path);
+//
+//     const render = renderMovies.bind({title: 'Upcoming Movies'})
+//     requestMovies(url, render, handleError);
+// }
 
 function getTopRatedMovies(value) {
     const path = '/movie/top_rated';
@@ -308,7 +308,7 @@ function renderSearchMovies(data) {
 /*--------- Invoke API Requests ----------*/
 searchMovies();
 
-getUpcomingMovies();
+//getUpcomingMovies();
 
 getPopularMovies();
 
