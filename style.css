@@ -1,6 +1,14 @@
+body {
+    background-color: #393b44;
+}
+
 form {
     border: 1px solid black;
     width: 25%;
+}
+
+.movie {
+    margin: 2rem 2rem;
 }
 
 
@@ -28,11 +36,27 @@ section {
     right: 0;
 }
 
+#movieImg {
+    border-radius: 5%;
+}
+
 .movieFromAPI #movieImg:hover,
 .movieFromAPI button:hover ~ #movieImg,
 .movieFromAPI #movieImg:hover ~ button {
     /*margin-left: 2rem;*/
     /*margin-right: 2rem;*/
-    transform: scale(1.2);
+    transform: scale(1.1);
     cursor: pointer;
 }
+
+h2 {
+    margin: 2rem 2rem;
+    color: #fff;
+    text-align: center;
+}
+
+.addMovie {
+    border-radius: 50%
+}
+
+
