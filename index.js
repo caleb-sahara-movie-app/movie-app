@@ -189,8 +189,7 @@ function getPopularMovies(value) {
 }
 
 function addMovie(ele) {
-    let movieID = $(ele)[0].attributes[2].nodeValue;
-
+    let movieID = $(ele)[0].attributes[3].nodeValue; //Attribute for ID has moved indexes
     const path = `/movie/${movieID}`
     const url = generateUrl(path);
 
