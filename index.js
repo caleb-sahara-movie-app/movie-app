@@ -4,8 +4,8 @@ const getUrl = 'https://stupendous-expensive-domain.glitch.me/movies';
 const getMovies = () => fetch(getUrl)
     .then(res => res.json())
     .then(movies => {
-        console.log(movies[0].vote_average)
-        console.log(movies)
+        //console.log(movies[0].vote_average)
+        //console.log(movies)
         let renderMovie = ''
         if (movies.length === 0)
             $('#result').html('')
@@ -39,9 +39,7 @@ const deleteMovie = (ele) => {
             'Content-Type': 'application/json'
         }
     })
-        .then((data) => {
-            getMovies()
-        })
+        .then(getMovies)
         .catch(console.error);
     console.log(dataID)
 }
@@ -206,40 +204,39 @@ function addMovie(ele) {
                 body: JSON.stringify(addedMovie)
             })
                 .then((data) => data.json())
-                .then(movie => {
-                    getMovies()
-                })
+                .then(getMovies)
                 // getMovies()
 
                 .catch(console.error);
         })
 
-
 }
-
 const editMovie = (ele) => {
-   // //target for API
-   //  let rating = ($(ele)[0].attributes[4].nodeValue)
-   //  let dataID = ($(ele)[0].attributes[3].nodeValue)
-   //  console.log("The id is: " + dataID)
-   //
-   //  const path = `/movie/${dataID}/rating`;
-   //  const url = generateUrl(path);
-   //  console.log(url)
-   //  fetch(url, {
-   //      method: 'POST',
-   //      headers: {
-   //          'Content-Type': 'application/json'
-   //      },
-   //      body: JSON.stringify(rating)
-   //  })
+
+   //target for API
+    //console.log(ele)
+    // let rating = ($(ele)[0].attributes[4].nodeValue)
+    // let dataID = ($(ele)[0].attributes[3].nodeValue)
+    // console.log("The id is: " + dataID)
+
+    // const path = `/movie/${dataID}/rating`;
+    // const url = generateUrl(path);
+    // console.log(url)
+    // fetch(url, {
+    //     method: 'PATCH',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(rating)
+    // })
+
 
 
     console.log($(ele))
     let rating = {'vote_average' : ($(ele)[0].attributes[4].nodeValue)}
     let dataID = ($(ele)[0].attributes[3].nodeValue)
     fetch(`${getUrl}/${dataID}`, {
-        method: 'PUT',
+        method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
         },

@@ -17,7 +17,7 @@ section {
     display: flex;
     width: 100%;
     overflow-x: auto;
-    height: 29rem;
+    height: 28rem;
 }
 
 .movieFromAPI img{
