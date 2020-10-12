@@ -124,7 +124,7 @@ function movieSection(movies) {
                     renderMovie +=
                         `<div class="movieFromAPI mx-3">
                         <button class="mt-5" onclick="renderModal(this)" data-rating=${movie.rating} data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Edit Movie</button>
-                        <button class="btn btn-success" id="addMovie" onclick="addMovie(this)" data-movie-id=${grabID} class="mr-4 mt-3"><i class="fas fa-plus"></i></button>
+                        <button class="btn btn-success" id="addMovie" onclick="addMovie(this)" data-movie-id=${grabID} class="mr-4 mt-3"><i class="far fa-heart"></i></button>
                         <img id="movieImg" src=${posterUrl + movie.poster_path} data-movie-id=${movie.id}/>
                     </div>`
 

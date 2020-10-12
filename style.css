@@ -32,6 +32,14 @@ section {
 }
 
 .movieFromAPI button {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    right: 0;
+}
+
+.movieFromAPI:hover button {
+    display: block;
     position: absolute;
     z-index: 1000;
     right: 0;
