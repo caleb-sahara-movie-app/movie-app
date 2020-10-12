@@ -162,13 +162,13 @@ function searchMovies(value) {
     requestMovies(url, renderSearchMovies, handleError);
 }
 
-// function getUpcomingMovies(value) {
-//     const path = '/movie/upcoming';
-//     const url = generateUrl(path);
-//
-//     const render = renderMovies.bind({title: 'Upcoming Movies'})
-//     requestMovies(url, render, handleError);
-// }
+function getTrendingMovies(value) {
+    const path = '/trending/movie/week';
+    const url = generateUrl(path);
+
+    const render = renderMovies.bind({title: "What's Trending?"})
+    requestMovies(url, render, handleError);
+}
 
 function getTopRatedMovies(value) {
     const path = '/movie/top_rated';
@@ -304,11 +304,11 @@ function renderSearchMovies(data) {
 /*--------- Invoke API Requests ----------*/
 searchMovies();
 
-//getUpcomingMovies();
+getTrendingMovies();
 
-getPopularMovies();
+//getPopularMovies();
 
-getTopRatedMovies();
+//getTopRatedMovies();
 
 
 
