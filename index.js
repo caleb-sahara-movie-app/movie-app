@@ -97,7 +97,7 @@ const renderModal = (ele) => {
     //${$('#rating-change').change(function () {return $(this).val();})}
     let rating = document.getElementById('rating-change').value;
     console.log(rating)
-    $('#rating-change').change(function() {
+    $('#rating-change').change(function () {
         rating = '';
 
         rating = ($(this).val())
@@ -211,9 +211,10 @@ function addMovie(ele) {
         })
 
 }
+
 const editMovie = (ele) => {
 
-   //target for API
+    //target for API
     //console.log(ele)
     // let rating = ($(ele)[0].attributes[4].nodeValue)
     // let dataID = ($(ele)[0].attributes[3].nodeValue)
@@ -231,9 +232,8 @@ const editMovie = (ele) => {
     // })
 
 
-
     console.log($(ele))
-    let rating = {'vote_average' : ($(ele)[0].attributes[4].nodeValue)}
+    let rating = {'vote_average': ($(ele)[0].attributes[4].nodeValue)}
     let dataID = ($(ele)[0].attributes[3].nodeValue)
     fetch(`${getUrl}/${dataID}`, {
         method: 'PATCH',
@@ -281,24 +281,26 @@ function renderMovies(data) {
 
 
 // Listener for the Search submit button
+$('#search-result').hide()
 $('#search-input').keyup((e) => {
+    $('#search-result').show()
     e.preventDefault();
     let value = $('#search-input').val()
     searchMovies(value);
-
-    value = '';
-    console.log('Input Value: ', value);
 });
 
 
 // Render the result of searched movies
 function renderSearchMovies(data) {
-    // data.results []
-    $('#search-result').html('');
-    const movies = data.results;
-    const movieBlock = createMovieContainer(movies);
-    $('#search-result').append(movieBlock);
-    // console.log('Data:', data);
+    console.log(data.results)
+    if (data.results[0].id === 680304 ) {
+        $('#search-result').html('');
+    } else {
+        $('#search-result').html('');
+        const movies = data.results;
+        const movieBlock = createMovieContainer(movies);
+        $('#search-result').append(movieBlock);
+    }
 }
 
 /*--------- Invoke API Requests ----------*/
