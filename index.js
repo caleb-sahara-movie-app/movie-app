@@ -283,9 +283,14 @@ function renderMovies(data) {
 // Listener for the Search submit button
 $('#search-result').hide()
 $('#search-input').keyup((e) => {
+    $('#movies-container').hide()
     $('#search-result').show()
     e.preventDefault();
     let value = $('#search-input').val()
+    if (value === "") {
+        $('#search-result').hide()
+        $('#movies-container').show()
+    }
     searchMovies(value);
 });
 
