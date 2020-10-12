@@ -281,7 +281,7 @@ function renderMovies(data) {
 
 
 // Listener for the Search submit button
-$('#search-submit').click((e) => {
+$('#search-input').keyup((e) => {
     e.preventDefault();
     let value = $('#search-input').val()
     searchMovies(value);
