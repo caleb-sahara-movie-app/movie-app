@@ -21,13 +21,14 @@ section {
 }
 
 .movieFromAPI img{
-    width: 300px;
+    width: 200px;
     transition: 250ms all;
 
 }
 
 .movieFromAPI {
     position: relative;
+    margin: 1rem 1rem;
 }
 
 .movieFromAPI button {
@@ -37,15 +38,14 @@ section {
 }
 
 #movieImg {
-    border-radius: 5%;
+
 }
 
 .movieFromAPI #movieImg:hover,
 .movieFromAPI button:hover ~ #movieImg,
 .movieFromAPI #movieImg:hover ~ button {
-    /*margin-left: 2rem;*/
-    /*margin-right: 2rem;*/
-    transform: scale(1.1);
+    background-color: #000;
+    opacity: 0.2;
     cursor: pointer;
 }
 

@@ -117,14 +117,18 @@ function movieSection(movies) {
     return movies.map((movie) => {
         if (movie.poster_path) {
             let renderMovie = ''
+            console.log(movies)
             for (movie of movies) {
-                let grabID = movie.id;
-                renderMovie +=
-                    `<div class="movieFromAPI mx-3">
+                if (movie.poster_path) {
+                    let grabID = movie.id;
+                    renderMovie +=
+                        `<div class="movieFromAPI mx-3">
                         <button class="mt-5" onclick="renderModal(this)" data-rating=${movie.rating} data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Edit Movie</button>
                         <button class="btn btn-success" id="addMovie" onclick="addMovie(this)" data-movie-id=${grabID} class="mr-4 mt-3"><i class="fas fa-plus"></i></button>
                         <img id="movieImg" src=${posterUrl + movie.poster_path} data-movie-id=${movie.id}/>
                     </div>`
+
+                }
             }
             return renderMovie;
         }
@@ -159,6 +163,7 @@ function handleError(error) {
 function searchMovies(value) {
     const path = '/search/movie';
     const url = generateUrl(path) + '&query=' + value;
+
     requestMovies(url, renderSearchMovies, handleError);
 }
 
@@ -298,7 +303,7 @@ $('#search-input').keyup((e) => {
 // Render the result of searched movies
 function renderSearchMovies(data) {
     console.log(data.results)
-    if (data.results[0].id === 680304 ) {
+    if (data.results[0].id === 680304) {
         $('#search-result').html('');
     } else {
         $('#search-result').html('');
