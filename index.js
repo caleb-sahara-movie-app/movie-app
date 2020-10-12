@@ -212,6 +212,7 @@ function addMovie(ele) {
 
 }
 const editMovie = (ele) => {
+
    //target for API
     //console.log(ele)
     // let rating = ($(ele)[0].attributes[4].nodeValue)
@@ -228,6 +229,7 @@ const editMovie = (ele) => {
     //     },
     //     body: JSON.stringify(rating)
     // })
+
 
 
     console.log($(ele))
@@ -279,7 +281,7 @@ function renderMovies(data) {
 
 
 // Listener for the Search submit button
-$('#search-submit').click((e) => {
+$('#search-input').keyup((e) => {
     e.preventDefault();
     let value = $('#search-input').val()
     searchMovies(value);
