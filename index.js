@@ -323,6 +323,10 @@ getTrendingMovies();
 //getTopRatedMovies();
 
 
+/* TOP NAVBAR*/
+
+
+
 
 
 
