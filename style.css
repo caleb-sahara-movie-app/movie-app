@@ -21,31 +21,39 @@ section {
 }
 
 .movieFromAPI img{
-    width: 300px;
+    width: 200px;
     transition: 250ms all;
 
 }
 
 .movieFromAPI {
     position: relative;
+    margin: 1rem 1rem;
 }
 
 .movieFromAPI button {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    right: 0;
+}
+
+.movieFromAPI:hover button {
+    display: block;
     position: absolute;
     z-index: 1000;
     right: 0;
 }
 
 #movieImg {
-    border-radius: 5%;
+
 }
 
 .movieFromAPI #movieImg:hover,
 .movieFromAPI button:hover ~ #movieImg,
 .movieFromAPI #movieImg:hover ~ button {
-    /*margin-left: 2rem;*/
-    /*margin-right: 2rem;*/
-    transform: scale(1.1);
+    background-color: #000;
+    opacity: 0.2;
     cursor: pointer;
 }
 
@@ -58,5 +66,9 @@ h2 {
 .addMovie {
     border-radius: 50%
 }
+
+
+/* TOP NAVBAR */
+
 
 
