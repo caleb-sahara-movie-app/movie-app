@@ -9,6 +9,7 @@ const getMovies = () => fetch(getUrl)
         let renderMovie = ''
         if (movies.length === 0)
             $('#result').html('')
+            //  $('.modal-dialog').html('')
         else
             for (let movie of movies) {
                 let grabID = movie.id;
@@ -20,9 +21,25 @@ const getMovies = () => fetch(getUrl)
                     </div>`
 
                 $('#result').html(renderMovie);
+                // $('.modal-dialog').html(renderMovie);
             }
 
     })
+
+// $('.watchList').click(function() {
+//     console.log("watchlist is clicked!");
+//     let watchListModal = '';
+//     watchListModal +=
+//         `<div data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">
+//             <div class="modal-dialog modal-xl">
+//             </div>
+//         </div>`
+//
+//     $('.watchList2').html(watchListModal);
+//
+// })
+
+// $('#myModal').modal('show');
 
 document.onreadystatechange = function () {
     if (document.readyState === "complete") {

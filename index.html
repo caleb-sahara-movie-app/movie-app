@@ -11,27 +11,77 @@
 </head>
 <body>
 
-<div class="dropdown ml-5 mt-3">
-    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-        Sort By:
-    </button>
-    <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Trending</a>
-        <a class="dropdown-item" href="#">Popularity</a>
-        <a class="dropdown-item" href="#">Rating</a>
+<div class="container-fluid d-flex bg-dark mt-0 ml-0">
+
+    <div class="dropdown ml-5 mt-3">
+        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+            Sort By:
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Trending</a>
+            <a class="dropdown-item" href="#">Popularity</a>
+            <a class="dropdown-item" href="#">Rating</a>
+        </div>
     </div>
+
+    <div class="dropdown ml-5 mt-3">
+        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownGenre" data-toggle="dropdown">
+            Genre:
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Adventure</a>
+            <a class="dropdown-item" href="#">Horror</a>
+        </div>
+    </div>
+
+    <a class="watchList ml-auto">
+        <i class="fas fa-couch fa-2x"></i>
+        <!-- Click Event Listener -->
+<!--        <div class="modal-dialog modal-xl"></div>-->
+    </a>
+
+<!--    <button type="button" data-toggle="modal" data-target="#myModal">Launch modal</button>-->
+<!--    <div id="myModal" class="modal-dialog modal-xl"></div>-->
+
 </div>
 
 <div class="d-flex justify-content-center my-3">
-<input id="search-input" type="text" placeholder="Search Movie..">
+    <input id="search-input" type="text" placeholder="Search Movie..">
 </div>
 <br>
 
 <div id="loader">Loading....</div>
-<!--<h2>My Watchlist</h2>-->
-<!--<section class='container-fluid section' id="result">-->
-<!--</section>-->
+<h2>My Watchlist</h2>
+<section class='container-fluid section' id="result">
+</section>
 <div class="putModal"></div>
+<div class="watchList2"></div>
+
+<!-- Button to Open the Modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    Open modal
+</button>
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Heading</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                Modal body..
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!-------------- themoviedb.org API Tests ---------------->
