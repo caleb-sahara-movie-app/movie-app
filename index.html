@@ -35,14 +35,10 @@
         </div>
     </div>
 
-    <a class="watchList ml-auto">
+    <!-- Button to Open the Modal -->
+    <button type="button" class="btn btn-dark ml-auto" data-toggle="modal" data-target="#myModal">
         <i class="fas fa-couch fa-2x"></i>
-        <!-- Click Event Listener -->
-<!--        <div class="modal-dialog modal-xl"></div>-->
-    </a>
-
-<!--    <button type="button" data-toggle="modal" data-target="#myModal">Launch modal</button>-->
-<!--    <div id="myModal" class="modal-dialog modal-xl"></div>-->
+    </button>
 
 </div>
 
@@ -52,35 +48,31 @@
 <br>
 
 <div id="loader">Loading....</div>
-<h2>My Watchlist</h2>
-<section class='container-fluid section' id="result">
-</section>
-<div class="putModal"></div>
-<div class="watchList2"></div>
+<!--<h2>My Watchlist</h2>-->
+<!--<section class='container-fluid section' id="result">-->
+<!--</section>-->
+<!--<div class="putModal"></div>-->
 
-<!-- Button to Open the Modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-    Open modal
-</button>
-<!-- The Modal -->
+
+<!-- The Watchlist Modal -->
 <div class="modal" id="myModal">
-    <div class="modal-dialog modal-xl">
+<!--    <div class="modal-dialog">-->
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Modal Heading</h4>
+                <h4 class="modal-title">My Watchlist</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                Modal body..
+                <section class='container-fluid section' id="result">
+                </section>
+                <div class="putModal"></div>
             </div>
             <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
+            <button type="button" class="modal-ft btn btn-dark" data-dismiss="modal">Close</button>
         </div>
-    </div>
+<!--    </div>-->
 </div>
 
 

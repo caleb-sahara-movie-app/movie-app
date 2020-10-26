@@ -71,6 +71,17 @@ h2 {
     color: white;
 }
 
+.modal-content {
+    overflow: auto;
+    height: 100vh;
+}
+
+.modal-ft {
+    position: fixed;
+    bottom: 0;
+    right: 3rem;
+}
+
 
 /* TOP NAVBAR */
 
