@@ -26,21 +26,6 @@ const getMovies = () => fetch(getUrl)
 
     })
 
-// $('.watchList').click(function() {
-//     console.log("watchlist is clicked!");
-//     let watchListModal = '';
-//     watchListModal +=
-//         `<div data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">
-//             <div class="modal-dialog modal-xl">
-//             </div>
-//         </div>`
-//
-//     $('.watchList2').html(watchListModal);
-//
-// })
-
-// $('#myModal').modal('show');
-
 document.onreadystatechange = function () {
     if (document.readyState === "complete") {
         $('#loader').remove()
