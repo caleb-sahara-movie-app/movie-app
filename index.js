@@ -50,6 +50,7 @@ const deleteMovie = (ele) => {
 const renderModal = (ele) => {
 
     console.log($(ele)[0].attributes[2].nodeValue)
+    // console.log($(ele)[0].attributes[3].nodeValue))
     let dataID = [($(ele)[0].attributes[2].nodeValue), ($(ele)[0].attributes[3].nodeValue)]
     // let userRating = $('#rating-change').val();
 
@@ -114,9 +115,6 @@ $("button[data-dismiss=modal1]").click(function(){
     console.log("hi there")
 });
 
-
-
-
 /*-------------------------------- themoviedb.org API Tests ----------------------------------*/
 const posterUrl = 'https://image.tmdb.org/t/p/w500';
 const url = 'https://api.themoviedb.org/3/search/movie?api_key=' + themoviedb_API;
@@ -133,7 +131,7 @@ function movieSection(movies) {
                     let grabID = movie.id;
                     renderMovie +=
                         `<div class="movieFromAPI mx-3">
-                        <button class="mt-5" onclick="renderModal(this)" data-rating=${movie.rating} data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Edit Movie</button>
+<!--                        <button class="mt-5" onclick="renderModal(this)" data-rating= data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Edit Movie</button>-->
                         <button class="btn btn-success" id="addMovie" onclick="addMovie(this)" data-movie-id=${grabID} class="mr-4 mt-3"><i class="far fa-heart"></i></button>
                         <img id="movieImg" src=${posterUrl + movie.poster_path} data-movie-id=${movie.id}/>
                     </div>`
@@ -228,25 +226,6 @@ function addMovie(ele) {
 }
 
 const editMovie = (ele) => {
-
-    //target for API
-    //console.log(ele)
-    // let rating = ($(ele)[0].attributes[4].nodeValue)
-    // let dataID = ($(ele)[0].attributes[3].nodeValue)
-    // console.log("The id is: " + dataID)
-
-    // const path = `/movie/${dataID}/rating`;
-    // const url = generateUrl(path);
-    // console.log(url)
-    // fetch(url, {
-    //     method: 'PATCH',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(rating)
-    // })
-
-
     console.log($(ele))
     let rating = {'vote_average': ($(ele)[0].attributes[4].nodeValue)}
     let dataID = ($(ele)[0].attributes[3].nodeValue)
@@ -259,9 +238,9 @@ const editMovie = (ele) => {
     })
         .then((data) => {
             getMovies()
-            $('.putModal').html('');
-            $('body').removeClass('modal-open'); // .modal-open overrides default scrolling behavior, so i removed that and BAM
-            $('.modal-backdrop').remove(); //removes that div class that is auto-injected in HTML
+            // $('.putModal').html('');
+            // $('body').removeClass('modal-open'); // .modal-open overrides default scrolling behavior, so i removed that and BAM
+            // $('.modal-backdrop').remove(); //removes that div class that is auto-injected in HTML
         })
         .catch(console.error);
 }
