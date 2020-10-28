@@ -60,7 +60,7 @@ const renderModal = (ele) => {
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Rate this Movie</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal2" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -85,7 +85,7 @@ const renderModal = (ele) => {
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal2">Close</button>
                 <button id="rating" type="button" onClick="editMovie(this)" data-id=${dataID[1]} data-rating="" class="updateChange btn btn-primary">Submit Changes</button>
             </div>
         </div>
@@ -93,10 +93,7 @@ const renderModal = (ele) => {
 </div>`
 
     $('.putModal').html(createModal)
-    // const userRating = function () {
-    //     $('#rating-change').change(function () {return $(this).val();})
-    // }
-    //${$('#rating-change').change(function () {return $(this).val();})}
+
     let rating = document.getElementById('rating-change').value;
     console.log(rating)
     $('#rating-change').change(function () {
@@ -106,7 +103,18 @@ const renderModal = (ele) => {
         console.log(rating)
         $('#rating').attr({'data-rating': `${rating}`})
     })
+    $("button[data-dismiss=modal2]").click(function(){
+        $('#exampleModal').modal('hide');
+    })
 }
+
+/*-------------------------------- MODAL CLOSE OVERRIDE ----------------------------------*/
+$("button[data-dismiss=modal1]").click(function(){
+    $('#myModal').modal('hide');
+    console.log("hi there")
+});
+
+
 
 
 /*-------------------------------- themoviedb.org API Tests ----------------------------------*/
