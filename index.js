@@ -1,6 +1,6 @@
 'use strict';
 
-const getUrl = 'https://stupendous-expensive-domain.glitch.me/movies';
+const getUrl = 'https://goldenrod-spotty-woolen.glitch.me/movies';
 const getMovies = () => fetch(getUrl)
     .then(res => res.json())
     .then(movies => {
@@ -141,7 +141,6 @@ const moviesContainer = document.querySelector('#movies-container');
 
 
 /*------------------ API requests -----------------*/
-
 function generateUrl(path) {
     const url = `https://api.themoviedb.org/3${path}?api_key=${themoviedb_API}`;
     return url;
@@ -184,6 +183,8 @@ function getTrendingMovies(value) {
     requestMovies(url, render, handleError);
 }
 
+
+
 function getTopRatedMovies(value) {
     const path = '/movie/top_rated';
     const url = generateUrl(path);
@@ -207,6 +208,15 @@ function getUpcomingMovies(value) {
     const render = renderMovies.bind({title: 'Upcoming'})
     requestMovies(url, render, handleError);
 }
+
+function getGenre(genre_id) {
+    const path = '/genre/' + genre_id + '/movies';
+    const url = generateUrl(path);
+
+    const render = renderMovies.bind({title: ''})
+    requestMovies(url, render, handleError);
+}
+
 
 function addMovie(ele) {
     let movieID = $(ele)[0].attributes[3].nodeValue; //Attribute for ID has moved indexes
@@ -330,16 +340,15 @@ $('#rating').click(function() {
 })
 
 // Genres
-
+$('#action').click(function() {
+    getGenre(28);
+    $('#movies-container').html('')
+})
 
 /*--------- Invoke API Requests ----------*/
 searchMovies();
-
 getTrendingMovies();
 
-//getPopularMovies();
-
-// getTopRatedMovies();
 
 
 /* TOP NAVBAR*/
