@@ -23,7 +23,10 @@ const getMovies = () => fetch(getUrl)
                 $('#result').html(renderMovie);
                 // $('.modal-dialog').html(renderMovie);
             }
+
     })
+
+
 
 document.onreadystatechange = function () {
     if (document.readyState === "complete") {
@@ -150,9 +153,15 @@ function generateUrl(path) {
 function requestMovies(url, onComplete, onError) {
     fetch(url)
         .then((res) => res.json())
+        .then(data => {
+            console.log(data);
+            return data;
+        })
         .then(onComplete)
         .catch(onError);
 }
+
+// getGenre();
 
 // Some Basic Error Handler
 function handleError(error) {
@@ -209,11 +218,12 @@ function getUpcomingMovies(value) {
     requestMovies(url, render, handleError);
 }
 
-function getGenre(genre_id) {
+function getGenre(genre_id, genre_name) {
+     //const path = '/genre/movie/list';
     const path = '/genre/' + genre_id + '/movies';
     const url = generateUrl(path);
 
-    const render = renderMovies.bind({title: ''})
+    const render = renderMovies.bind({title: genre_name});
     requestMovies(url, render, handleError);
 }
 
@@ -339,19 +349,83 @@ $('#rating').click(function() {
     $('#movies-container').html('')
 })
 
-// Genres
+////////// Genres //////////
 $('#action').click(function() {
-    getGenre(28);
+    getGenre(28, 'Action');
     $('#movies-container').html('')
 })
+
+$('#adventure').click(function() {
+    getGenre(12, 'Adventure');
+    $('#movies-container').html('')
+})
+
+$('#animation').click(function() {
+    getGenre(16, 'Animation');
+    $('#movies-container').html('')
+})
+
+$('#comedy').click(function() {
+    getGenre(35, 'Comedy');
+    $('#movies-container').html('')
+})
+
+$('#crime').click(function() {
+    getGenre(80, 'Crime');
+    $('#movies-container').html('')
+})
+
+$('#drama').click(function() {
+    getGenre(18, 'Drama');
+    $('#movies-container').html('')
+})
+
+$('#family').click(function() {
+    getGenre(10751, 'Family');
+    $('#movies-container').html('')
+})
+
+$('#fantasy').click(function() {
+    getGenre(14, 'Fantasy');
+    $('#movies-container').html('')
+})
+
+$('#history').click(function() {
+    getGenre(36, 'History');
+    $('#movies-container').html('')
+})
+
+$('#horror').click(function() {
+    getGenre(27, 'Horror');
+    $('#movies-container').html('')
+})
+
+$('#music').click(function() {
+    getGenre(10402, 'Music');
+    $('#movies-container').html('')
+})
+
+$('#romance').click(function() {
+    getGenre(10749, 'Romance');
+    $('#movies-container').html('')
+})
+
+$('#scifi').click(function() {
+    getGenre(878, 'Sci Fi');
+    $('#movies-container').html('')
+})
+
+$('#thriller').click(function() {
+    getGenre(53, 'Thriller');
+    $('#movies-container').html('')
+})
+
 
 /*--------- Invoke API Requests ----------*/
 searchMovies();
 getTrendingMovies();
 
 
-
-/* TOP NAVBAR*/
 
 
 
