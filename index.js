@@ -1,5 +1,7 @@
 'use strict';
 
+let movieId;
+
 const getUrl = 'https://goldenrod-spotty-woolen.glitch.me/movies';
 const getMovies = () => fetch(getUrl)
     .then(res => res.json())
@@ -48,8 +50,8 @@ const deleteMovie = (ele) => {
     console.log(dataID)
 }
 
-
-const renderModal = (ele) => {
+// Pass the movie ID
+const renderModal = (movieID) => {
 
     console.log(ele)
     console.log($(ele)[0].attributes[2])
@@ -111,6 +113,7 @@ const renderModal = (ele) => {
     $("button[data-dismiss=modal2]").click(function(){
         $('#exampleModal').modal('hide');
     })
+
 }
 
 /*-------------------------------- MODAL CLOSE OVERRIDE ----------------------------------*/
@@ -167,15 +170,6 @@ function requestMovies(url, onComplete, onError) {
 function handleError(error) {
     console.log('Error:', error);
 }
-
-function getPopularMovies(value) {
-    const path = '/movie/popular';
-    const url = generateUrl(path);
-
-    const render = renderMovies.bind({title: 'Popular Movies'})
-    requestMovies(url, render, handleError);
-}
-
 
 function searchMovies(value) {
     const path = '/search/movie';
@@ -272,6 +266,7 @@ const editMovie = (ele) => {
         })
         .catch(console.error);
 }
+
 /*---------- Render to HTML -----------*/
 
 // Trying to figure out how convert vanilla JS to jQuery when adding new elements to document
