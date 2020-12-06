@@ -48,7 +48,7 @@ const deleteMovie = (ele) => {
 
 
 const renderModal = (ele) => {
-
+    console.log(ele)
     console.log($(ele)[0].attributes[2])
     // console.log($(ele)[0].attributes[3])
     let dataID = [($(ele)[0].attributes[2].nodeValue), ($(ele)[0].attributes[3].value)]
@@ -118,7 +118,6 @@ $("button[data-dismiss=modal1]").click(function(){
 /*-------------------------------- themoviedb.org API Tests ----------------------------------*/
 const posterUrl = 'https://image.tmdb.org/t/p/w500';
 const url = 'https://api.themoviedb.org/3/search/movie?api_key=' + themoviedb_API;
-
 
 // Movie Poster Function
 function movieSection(movies) {
@@ -300,6 +299,12 @@ function renderSearchMovies(data) {
     }
 }
 
+// Listener for Popular Movies
+$('#popular').click(function() {
+    getPopularMovies();
+    $('#movies-container').html('');
+})
+
 /*--------- Invoke API Requests ----------*/
 searchMovies();
 
@@ -307,7 +312,7 @@ getTrendingMovies();
 
 //getPopularMovies();
 
-//getTopRatedMovies();
+// getTopRatedMovies();
 
 
 /* TOP NAVBAR*/
