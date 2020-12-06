@@ -23,7 +23,6 @@ const getMovies = () => fetch(getUrl)
                 $('#result').html(renderMovie);
                 // $('.modal-dialog').html(renderMovie);
             }
-
     })
 
 document.onreadystatechange = function () {
@@ -49,7 +48,9 @@ const deleteMovie = (ele) => {
 
 const renderModal = (ele) => {
 
-    // console.log($(ele)[0].attributes[2])
+    console.log(ele)
+    console.log($(ele)[0].attributes[2])
+
     // console.log($(ele)[0].attributes[3])
     let dataID = [($(ele)[0].attributes[2].nodeValue), ($(ele)[0].attributes[3].value)]
     // let userRating = $('#rating-change').val();
@@ -119,7 +120,6 @@ $("button[data-dismiss=modal1]").click(function(){
 const posterUrl = 'https://image.tmdb.org/t/p/w500';
 const url = 'https://api.themoviedb.org/3/search/movie?api_key=' + themoviedb_API;
 
-
 // Movie Poster Function
 function movieSection(movies) {
             let renderMovie = ''
@@ -160,6 +160,14 @@ function handleError(error) {
     console.log('Error:', error);
 }
 
+function getPopularMovies(value) {
+    const path = '/movie/popular';
+    const url = generateUrl(path);
+
+    const render = renderMovies.bind({title: 'Popular Movies'})
+    requestMovies(url, render, handleError);
+}
+
 
 function searchMovies(value) {
     const path = '/search/movie';
@@ -189,6 +197,14 @@ function getPopularMovies(value) {
     const url = generateUrl(path);
 
     const render = renderMovies.bind({title: 'Popular Movies'})
+    requestMovies(url, render, handleError);
+}
+
+function getUpcomingMovies(value) {
+    const path = '/movie/upcoming';
+    const url = generateUrl(path);
+
+    const render = renderMovies.bind({title: 'Upcoming'})
     requestMovies(url, render, handleError);
 }
 
@@ -250,7 +266,6 @@ function createMovieContainer(movies, title = '') {
       </section>
        `;
     // Notice we're calling that function to feed into <section> : movieSection() on ln.146
-
     movieElement.innerHTML = movieTemplate;
     return movieElement;
 }
@@ -280,7 +295,6 @@ $('#search-input').keyup((e) => {
     searchMovies(value);
 });
 
-
 // Render the result of searched movies
 function renderSearchMovies(data) {
     console.log(data.results)
@@ -294,6 +308,30 @@ function renderSearchMovies(data) {
     }
 }
 
+// Sort By dropdown
+$('#upcoming').click(function() {
+    getUpcomingMovies();
+    $('#movies-container').html('')
+})
+
+$('#trending').click(function() {
+    getTrendingMovies();
+    $('#movies-container').html('');
+})
+
+$('#popular').click(function() {
+    getPopularMovies();
+    $('#movies-container').html('');
+})
+
+$('#rating').click(function() {
+    getTopRatedMovies();
+    $('#movies-container').html('')
+})
+
+// Genres
+
+
 /*--------- Invoke API Requests ----------*/
 searchMovies();
 
@@ -301,7 +339,7 @@ getTrendingMovies();
 
 //getPopularMovies();
 
-//getTopRatedMovies();
+// getTopRatedMovies();
 
 
 /* TOP NAVBAR*/
