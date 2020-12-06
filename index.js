@@ -164,6 +164,14 @@ function handleError(error) {
     console.log('Error:', error);
 }
 
+function getPopularMovies(value) {
+    const path = '/movie/popular';
+    const url = generateUrl(path);
+
+    const render = renderMovies.bind({title: 'Popular Movies'})
+    requestMovies(url, render, handleError);
+}
+
 
 function searchMovies(value) {
     const path = '/search/movie';
@@ -262,7 +270,6 @@ function createMovieContainer(movies, title = '') {
       </section>
        `;
     // Notice we're calling that function to feed into <section> : movieSection() on ln.146
-
     movieElement.innerHTML = movieTemplate;
     return movieElement;
 }
@@ -291,7 +298,6 @@ $('#search-input').keyup((e) => {
     }
     searchMovies(value);
 });
-
 
 // Render the result of searched movies
 function renderSearchMovies(data) {
@@ -326,6 +332,8 @@ $('#rating').click(function() {
     getTopRatedMovies();
     $('#movies-container').html('')
 })
+
+// Genres
 
 
 /*--------- Invoke API Requests ----------*/
