@@ -4,8 +4,8 @@ const getUrl = 'https://stupendous-expensive-domain.glitch.me/movies';
 const getMovies = () => fetch(getUrl)
     .then(res => res.json())
     .then(movies => {
-        console.log(movies[0].vote_average)
-        console.log(movies)
+        // console.log(movies[0].vote_average)
+        // console.log(movies)
         let renderMovie = ''
         if (movies.length === 0)
             $('#result').html('')
@@ -49,7 +49,7 @@ const deleteMovie = (ele) => {
 
 const renderModal = (ele) => {
 
-    console.log($(ele)[0].attributes[2])
+    // console.log($(ele)[0].attributes[2])
     // console.log($(ele)[0].attributes[3])
     let dataID = [($(ele)[0].attributes[2].nodeValue), ($(ele)[0].attributes[3].value)]
     // let userRating = $('#rating-change').val();
@@ -96,12 +96,12 @@ const renderModal = (ele) => {
     $('.putModal').html(createModal)
 
     let rating = document.getElementById('rating-change').value;
-    console.log(rating)
+    // console.log(rating)
     $('#rating-change').change(function () {
         rating = '';
 
         rating = ($(this).val())
-        console.log(rating)
+        // console.log(rating)
         $('#rating').attr({'data-rating': `${rating}`})
     })
     $("button[data-dismiss=modal2]").click(function(){
@@ -122,11 +122,8 @@ const url = 'https://api.themoviedb.org/3/search/movie?api_key=' + themoviedb_AP
 
 // Movie Poster Function
 function movieSection(movies) {
-    return movies.map((movie) => {
-        if (movie.poster_path) {
             let renderMovie = ''
-            console.log(movies)
-            for (movie of movies) {
+            for (let movie of movies) {
                 if (movie.poster_path) {
                     let grabID = movie.id;
                     renderMovie +=
@@ -134,12 +131,9 @@ function movieSection(movies) {
                         <button class="btn btn-success" id="addMovie" onclick="addMovie(this)" data-movie-id=${grabID} class="mr-4 mt-3"><i class="far fa-heart"></i></button>
                         <img id="movieImg" src=${posterUrl + movie.poster_path} data-movie-id=${movie.id}/>
                     </div>`
-
                 }
             }
             return renderMovie;
-        }
-    });
 }
 
 // Select Elements from DOM
