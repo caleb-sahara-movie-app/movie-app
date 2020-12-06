@@ -23,7 +23,6 @@ const getMovies = () => fetch(getUrl)
                 $('#result').html(renderMovie);
                 // $('.modal-dialog').html(renderMovie);
             }
-
     })
 
 document.onreadystatechange = function () {
@@ -197,6 +196,14 @@ function getPopularMovies(value) {
     requestMovies(url, render, handleError);
 }
 
+function getUpcomingMovies(value) {
+    const path = '/movie/upcoming';
+    const url = generateUrl(path);
+
+    const render = renderMovies.bind({title: 'Upcoming'})
+    requestMovies(url, render, handleError);
+}
+
 function addMovie(ele) {
     let movieID = $(ele)[0].attributes[3].nodeValue; //Attribute for ID has moved indexes
     const path = `/movie/${movieID}`
@@ -299,11 +306,27 @@ function renderSearchMovies(data) {
     }
 }
 
-// Listener for Popular Movies
+// Sort By dropdown
+$('#upcoming').click(function() {
+    getUpcomingMovies();
+    $('#movies-container').html('')
+})
+
+$('#trending').click(function() {
+    getTrendingMovies();
+    $('#movies-container').html('');
+})
+
 $('#popular').click(function() {
     getPopularMovies();
     $('#movies-container').html('');
 })
+
+$('#rating').click(function() {
+    getTopRatedMovies();
+    $('#movies-container').html('')
+})
+
 
 /*--------- Invoke API Requests ----------*/
 searchMovies();
