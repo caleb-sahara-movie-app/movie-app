@@ -1,6 +1,6 @@
 'use strict';
 
-/*--------------------------- All functions associated with database info: 5-132 -----------------------------*/
+/*--------------------------- All functions associated with database info: 5-159 -----------------------------*/
 
 //Get Information from our database (WATCHLIST) and display a Movie object in our watchlist
 const getUrl = 'https://goldenrod-spotty-woolen.glitch.me/movies';
@@ -25,6 +25,7 @@ const getMovies = () => fetch(getUrl)
 
                 $('#result').html(renderMovie);
             }
+
     })
 
 // Loader function that will display a loading message until our movies are retrieved from database
@@ -150,12 +151,12 @@ const renderModal = (id, rate) => {
     $("button[data-dismiss=modal2]").click(function(){
         $('#exampleModal').modal('hide');
     })
+
 }
 // Edit modal close override
 $("button[data-dismiss=modal1]").click(function(){
     $('#myModal').modal('hide');
 });
-
 
 /*-------------------------------- Information That Will Display Movies To Landing Page ----------------------------------*/
 //          URL info for API Requests
@@ -176,11 +177,11 @@ function requestMovies(url, onComplete, onError) {
         .then(onComplete)
         .catch(onError);
 }
+
 // Some Basic Error Handler
 function handleError(error) {
     console.log('Error:', error);
 }
-
 
 //------------------------------------ Event Listener and Functions for Searching -------------------------//
 $('#search-result').hide()
@@ -211,7 +212,6 @@ function searchMovies(value) {
     const url = generateUrl(path) + '&query=' + value;
     requestMovies(url, renderSearchMovies, handleError);
 }
-
 
 //------------------------------------ Event Listener and Function forEach Sorting Value -------------------------//
 // Upcoming Movies
@@ -261,6 +261,84 @@ function getTopRatedMovies(value) {
     const render = renderMovies.bind({title: 'Top Rated Movies'})
     requestMovies(url, render, handleError);
 }
+// Genres
+$('#action').click(function() {
+    getGenre(28, 'Action');
+    $('#movies-container').html('')
+})
+
+$('#adventure').click(function() {
+    getGenre(12, 'Adventure');
+    $('#movies-container').html('')
+})
+
+$('#animation').click(function() {
+    getGenre(16, 'Animation');
+    $('#movies-container').html('')
+})
+
+$('#comedy').click(function() {
+    getGenre(35, 'Comedy');
+    $('#movies-container').html('')
+})
+
+$('#crime').click(function() {
+    getGenre(80, 'Crime');
+    $('#movies-container').html('')
+})
+
+$('#drama').click(function() {
+    getGenre(18, 'Drama');
+    $('#movies-container').html('')
+})
+
+$('#family').click(function() {
+    getGenre(10751, 'Family');
+    $('#movies-container').html('')
+})
+
+$('#fantasy').click(function() {
+    getGenre(14, 'Fantasy');
+    $('#movies-container').html('')
+})
+
+$('#history').click(function() {
+    getGenre(36, 'History');
+    $('#movies-container').html('')
+})
+
+$('#horror').click(function() {
+    getGenre(27, 'Horror');
+    $('#movies-container').html('')
+})
+
+$('#music').click(function() {
+    getGenre(10402, 'Music');
+    $('#movies-container').html('')
+})
+
+$('#romance').click(function() {
+    getGenre(10749, 'Romance');
+    $('#movies-container').html('')
+})
+
+$('#scifi').click(function() {
+    getGenre(878, 'Sci Fi');
+    $('#movies-container').html('')
+})
+
+$('#thriller').click(function() {
+    getGenre(53, 'Thriller');
+    $('#movies-container').html('')
+})
+function getGenre(genre_id, genre_name) {
+     //const path = '/genre/movie/list';
+    const path = '/genre/' + genre_id + '/movies';
+    const url = generateUrl(path);
+    const render = renderMovies.bind({title: genre_name});
+    requestMovies(url, render, handleError);
+}
+
 
 //---------------------------------- This function will take passed values from event listeners ------------------------------//
 //---------------------------- and send it to createMovieContainer() to build a movie section in HTML ------------------------------//
@@ -303,15 +381,3 @@ function movieSection(movies) {
 /*--------- Invoke API Requests ----------*/
 getTrendingMovies();
 searchMovies();
-
-
-
-
-
-
-
-
-
-
-
-
