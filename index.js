@@ -1,6 +1,8 @@
 'use strict';
 
-const getUrl = 'https://stupendous-expensive-domain.glitch.me/movies';
+let movieId;
+
+const getUrl = 'https://goldenrod-spotty-woolen.glitch.me/movies';
 const getMovies = () => fetch(getUrl)
     .then(res => res.json())
     .then(movies => {
@@ -23,7 +25,10 @@ const getMovies = () => fetch(getUrl)
                 $('#result').html(renderMovie);
                 // $('.modal-dialog').html(renderMovie);
             }
+
     })
+
+
 
 document.onreadystatechange = function () {
     if (document.readyState === "complete") {
@@ -45,8 +50,8 @@ const deleteMovie = (ele) => {
     console.log(dataID)
 }
 
-
-const renderModal = (ele) => {
+// Pass the movie ID
+const renderModal = (movieID) => {
 
     console.log(ele)
     console.log($(ele)[0].attributes[2])
@@ -108,6 +113,7 @@ const renderModal = (ele) => {
     $("button[data-dismiss=modal2]").click(function(){
         $('#exampleModal').modal('hide');
     })
+
 }
 
 /*-------------------------------- MODAL CLOSE OVERRIDE ----------------------------------*/
@@ -141,7 +147,6 @@ const moviesContainer = document.querySelector('#movies-container');
 
 
 /*------------------ API requests -----------------*/
-
 function generateUrl(path) {
     const url = `https://api.themoviedb.org/3${path}?api_key=${themoviedb_API}`;
     return url;
@@ -151,23 +156,20 @@ function generateUrl(path) {
 function requestMovies(url, onComplete, onError) {
     fetch(url)
         .then((res) => res.json())
+        .then(data => {
+            console.log(data);
+            return data;
+        })
         .then(onComplete)
         .catch(onError);
 }
+
+// getGenre();
 
 // Some Basic Error Handler
 function handleError(error) {
     console.log('Error:', error);
 }
-
-function getPopularMovies(value) {
-    const path = '/movie/popular';
-    const url = generateUrl(path);
-
-    const render = renderMovies.bind({title: 'Popular Movies'})
-    requestMovies(url, render, handleError);
-}
-
 
 function searchMovies(value) {
     const path = '/search/movie';
@@ -183,6 +185,8 @@ function getTrendingMovies(value) {
     const render = renderMovies.bind({title: "What's Trending?"})
     requestMovies(url, render, handleError);
 }
+
+
 
 function getTopRatedMovies(value) {
     const path = '/movie/top_rated';
@@ -207,6 +211,16 @@ function getUpcomingMovies(value) {
     const render = renderMovies.bind({title: 'Upcoming'})
     requestMovies(url, render, handleError);
 }
+
+function getGenre(genre_id, genre_name) {
+     //const path = '/genre/movie/list';
+    const path = '/genre/' + genre_id + '/movies';
+    const url = generateUrl(path);
+
+    const render = renderMovies.bind({title: genre_name});
+    requestMovies(url, render, handleError);
+}
+
 
 function addMovie(ele) {
     let movieID = $(ele)[0].attributes[3].nodeValue; //Attribute for ID has moved indexes
@@ -252,6 +266,7 @@ const editMovie = (ele) => {
         })
         .catch(console.error);
 }
+
 /*---------- Render to HTML -----------*/
 
 // Trying to figure out how convert vanilla JS to jQuery when adding new elements to document
@@ -329,20 +344,83 @@ $('#rating').click(function() {
     $('#movies-container').html('')
 })
 
-// Genres
+////////// Genres //////////
+$('#action').click(function() {
+    getGenre(28, 'Action');
+    $('#movies-container').html('')
+})
+
+$('#adventure').click(function() {
+    getGenre(12, 'Adventure');
+    $('#movies-container').html('')
+})
+
+$('#animation').click(function() {
+    getGenre(16, 'Animation');
+    $('#movies-container').html('')
+})
+
+$('#comedy').click(function() {
+    getGenre(35, 'Comedy');
+    $('#movies-container').html('')
+})
+
+$('#crime').click(function() {
+    getGenre(80, 'Crime');
+    $('#movies-container').html('')
+})
+
+$('#drama').click(function() {
+    getGenre(18, 'Drama');
+    $('#movies-container').html('')
+})
+
+$('#family').click(function() {
+    getGenre(10751, 'Family');
+    $('#movies-container').html('')
+})
+
+$('#fantasy').click(function() {
+    getGenre(14, 'Fantasy');
+    $('#movies-container').html('')
+})
+
+$('#history').click(function() {
+    getGenre(36, 'History');
+    $('#movies-container').html('')
+})
+
+$('#horror').click(function() {
+    getGenre(27, 'Horror');
+    $('#movies-container').html('')
+})
+
+$('#music').click(function() {
+    getGenre(10402, 'Music');
+    $('#movies-container').html('')
+})
+
+$('#romance').click(function() {
+    getGenre(10749, 'Romance');
+    $('#movies-container').html('')
+})
+
+$('#scifi').click(function() {
+    getGenre(878, 'Sci Fi');
+    $('#movies-container').html('')
+})
+
+$('#thriller').click(function() {
+    getGenre(53, 'Thriller');
+    $('#movies-container').html('')
+})
 
 
 /*--------- Invoke API Requests ----------*/
 searchMovies();
-
 getTrendingMovies();
 
-//getPopularMovies();
 
-// getTopRatedMovies();
-
-
-/* TOP NAVBAR*/
 
 
 
